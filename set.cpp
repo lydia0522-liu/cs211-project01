@@ -103,11 +103,17 @@ void Set::insert(int e)
 void Set::remove(int e)
 {
   // is e in the set?
-  vector<int>::iterator iter = std::find(this->S.begin(), this->S.end(), e);
-  if (iter != this->S.end()) // yes, so remove:
-  {
-    this->S.erase(iter);
-  }
+  //vector<int>::iterator iter = std::find(this->S.begin(), this->S.end(), e);
+  //if (iter != this->S.end()) // yes, so remove:
+  //{
+  //  this->S.erase(iter);
+  //}
+    auto iter = lower_bound(S.begin(), S.end(), e);
+
+    if (iter != S.end() && *iter == e)
+    {
+        S.erase(iter);
+    }
 }
 
 // merge two sets together, eliminating duplicates
@@ -148,4 +154,38 @@ void Set::merge(const Set& S2)
     }
 
   this->S = result;
+}
+
+Set Set::difference(Set& other)
+{
+    Set result;
+
+    size_t i = 0;
+    size_t j = 0;
+
+    while (i < S.size() && j < other.S.size())
+    {
+        if (S[i] < other.S[j])
+        {
+            result.S.push_back(S[i]);
+            i++;
+        }
+        else if (S[i] > other.S[j])
+        {
+            j++;
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+
+    while (i < S.size())
+    {
+        result.S.push_back(S[i]);
+        i++;
+    }
+
+    return result;
 }
