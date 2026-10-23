@@ -68,9 +68,11 @@ vector<int>::iterator Set::end()
  */
 bool Set::contains(int e)
 {
-  vector<int>::iterator iter = std::find(this->S.begin(), this->S.end(), e);
+  // vector<int>::iterator iter = std::find(this->S.begin(), this->S.end(), e);
 
-  return (iter != this->S.end());
+  // return (iter != this->S.end());
+  auto iter = lower_bound(S.begin(), S.end(), e);
+  return(iter != S.end() && *iter ==e);
 }
 
 /** 
@@ -106,4 +108,44 @@ void Set::remove(int e)
   {
     this->S.erase(iter);
   }
+}
+
+// merge two sets together, eliminating duplicates
+void Set::merge(const Set& S2)
+{
+  vector<int> result;
+  size_t i = 0;
+  size_t j = 0;
+  while (i < this->S.size() && j < S2.S.size())
+  {
+    if (this->S[i] < S2.S[j])
+    {
+      result.push_back(this->S[i]);
+      i++;
+    }
+    else if (this->S[i] > S2.S[j])
+    {
+      result.push_back(S2.S[j]);
+      j++;
+    }
+    else
+    {
+      result.push_back(this->S[i]);
+      i++;
+      j++;
+    }
+  }
+
+  while (i < this->S.size())
+    {
+      result.push_back(this->S[i]);
+      i++;
+    }
+    while (j< S2.S.size())
+    {
+      result.push_back(S2.S[j]);
+      j++;
+    }
+
+  this->S = result;
 }
