@@ -124,6 +124,28 @@ int main()
     iter++;
   }
 
+    //
+  // check merge():
+  //
+  Set s1;
+  s1.insert(1);
+  s1.insert(3);
+  s1.insert(5);
+
+  Set s2;
+  s2.insert(2);
+  s2.insert(3);
+  s2.insert(6);
+
+  s1.merge(s2);
+
+  cout << endl;
+  cout << "After merge:" << endl;
+
+  for (int e : s1) {
+    cout << e << " ";
+  }
+
   //
   // done:
   //
