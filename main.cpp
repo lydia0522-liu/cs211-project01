@@ -151,5 +151,63 @@ int main()
   //
   cout << endl;
 
+  // test intersection
+Set a;
+a.insert(1);
+a.insert(3);
+a.insert(5);
+
+Set b;
+b.insert(2);
+b.insert(3);
+b.insert(5);
+
+a.intersection(b);
+
+cout << "Intersection: ";
+for (int e : a)
+{
+    cout << e << " ";
+}
+cout << endl;
+
+
+// test disjoint
+  Set c;
+  c.insert(1);
+  c.insert(3);
+
+  Set d;
+  d.insert(2);
+  d.insert(4);
+
+  cout << "Disjoint: "
+      << boolalpha << c.disjoint(d) << endl;
+
+  d.insert(3);
+
+  cout << "Disjoint after adding 3: "
+      << c.disjoint(d) << endl;
+
+  // test diff
+
+  Set e;
+  e.insert(1);
+  e.insert(3);
+  e.insert(5);
+
+  Set f;
+  f.insert(3);
+  f.insert(4);
+
+  e.difference(f);
+
+  cout << "Difference: ";
+  for (int num : e)
+  {
+      cout << num << " ";
+  }
+  cout << endl;
+
   return 0;
 }
