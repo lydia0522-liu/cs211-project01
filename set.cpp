@@ -156,7 +156,7 @@ void Set::merge(const Set& S2)
   this->S = result;
 }
 
-Set Set::difference(Set& other)
+void Set::difference(const Set& other)
 {
     Set result;
 
@@ -187,5 +187,55 @@ Set Set::difference(Set& other)
         i++;
     }
 
-    return result;
+    S = result.S;
+}
+
+
+//common ele in both sets
+void Set::intersection(const Set& S2)
+{
+    vector<int> result;
+    size_t i = 0;
+    size_t j = 0;
+    while (i < S.size() && j < S2.S.size())
+    {
+        if (S[i] < S2.S[j])
+        {
+            i++;
+        }
+        else if (S[i] > S2.S[j])
+        {
+            j++;
+        }
+        else
+        {
+            result.push_back(S[i]);
+            i++;
+            j++;
+        }
+    }
+    S = result;
+}
+
+// if 2 sets have common ele
+bool Set::disjoint(const Set& S2) const
+{
+    size_t i = 0;
+    size_t j = 0;
+    while (i < S.size() && j < S2.S.size())
+    {
+        if (S[i] == S2.S[j])
+        {
+            return false;
+        }
+        else if (S[i] < S2.S[j])
+        {
+            i++;
+        }
+        else
+        {
+            j++;
+        }
+    }
+    return true;
 }
